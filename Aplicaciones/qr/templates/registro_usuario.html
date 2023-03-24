@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+    <title>Inscripcion Evento</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content  -->
+        <!-- ============================================================== -->
+        <div class="mt-5 row">
+            <div class="col-md-8" style="margin: 0 auto; float: none;">
+                <div class="card">
+                    <form class="form-horizontal" method="POST">{% csrf_token %}
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Formulario de inscripcion</h4>
+                            <div style="text-align:center; color:red;">
+                                {% if mensaje %}
+                                <p>{{ mensaje }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                    Nombres <span class="text-danger">*</span>
+                                </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="txtname" class="form-control" id="fname"
+                                        placeholder="Ingrese sus Nombres" required>
+                                </div>
+                            </div>
+
+                            <input type="text" hidden>
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Apellidos
+                                    <span class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="txtlname" class="form-control" id="fname"
+                                        placeholder="Ingrese sus Apellidos" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">E-mail <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="email" name="txtemail" class="form-control" id="lname"
+                                        placeholder="Ingrese su correo Electronico" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email1" class="col-sm-3 text-right control-label col-form-label">Ciudad
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="txtciudad" class="form-control" id="email1"
+                                        placeholder="Ingrese su Ciudad" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Direccion
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="txtad" class="form-control" id="lname"
+                                        placeholder="Direccion Domiciliaria">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Ocupacion
+                                </label>
+                                <div class="col-sm-9">
+                                    <!-- <input type="text" name="txtocupacion" class="form-control" id="lname" placeholder="Ingrese su Ocupacion"> -->
+                                    <select name="txtocupacion" id="selectOption" class="form-control">
+                                        <option value='otro'>Otro</option>
+                                        <option value=' Médico/a'> Médico/a</option>
+                                        <option value=' Enfermero/a'> Enfermero/a</option>
+                                        <option value=' Ingeniero/a'> Ingeniero/a</option>
+                                        <option value=' Abogado/a'> Abogado/a</option>
+                                        <option value=' Maestro/a'> Maestro/a</option>
+                                        <option value=' Arquitecto/a'> Arquitecto/a</option>
+                                        <option value=' Chef/Cocinero/a'> Chef/Cocinero/a</option>
+                                        <option value=' Carpintero/a'> Carpintero/a</option>
+                                        <option value=' Electricista'> Electricista</option>
+                                        <option value=' Plomero/a'> Plomero/a</option>
+                                        <option value=' Mecánico/a'> Mecánico/a</option>
+                                        <option value=' Diseñador/a gráfico/a'> Diseñador/a gráfico/a</option>
+                                        <option value=' Periodista'> Periodista</option>
+                                        <option value=' Escritor/a'> Escritor/a</option>
+                                        <option value=' Fotógrafo/a'> Fotógrafo/a</option>
+                                        <option value=' Artista plástico/a'> Artista plástico/a</option>
+                                        <option value=' Actor/actriz'> Actor/actriz</option>
+                                        <option value=' Bailarín/bailarina'> Bailarín/bailarina</option>
+                                        <option value=' Deportista/profesional del deporte'> Deportista/profesional del
+                                            deporte</option>
+                                        <option value=' Político/a'> Político/a</option>
+                                        <option value=' Empresario/a'> Empresario/a</option>
+                                        <option value=' Analista financiero/a'> Analista financiero/a</option>
+                                        <option value=' Investigador/a'> Investigador/a</option>
+                                        <option value=' Psicólogo/a'> Psicólogo/a</option>
+                                        <option value=' Trabajador/a social'> Trabajador/a social</option>
+                                        <option value=' Administrador/a de empresas'> Administrador/a de empresas
+                                        </option>
+                                        <option value=' Agente de seguros'> Agente de seguros</option>
+                                        <option value=' Vendedor/a'> Vendedor/a</option>
+                                        <option value=' Servidor/a de atención al cliente'> Servidor/a de atención al
+                                            cliente</option>
+                                        <option value=' Operador/a de maquinaria pesada'> Operador/a de maquinaria
+                                            pesada</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Cedula <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="text" pattern="[0-9]{10}" maxlength="10" name="txtcedula"
+                                        class="form-control" id="lname" placeholder="Ingrese su cedula" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Telefono
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="tel" pattern="[0-9]{10}" maxlength="10" name="txtphone"
+                                        class="form-control phone-inputmask" id="phone-mask"
+                                        placeholder="Ingrese su numero Telefonico">
+                                </div>
+
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Edad <span
+                                        class="text-danger">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="number" name="txtage" class="form-control" min="1" max="999" required
+                                        placeholder="Ingrese su Edad" oninput="checkLength(this)" pattern="[0-9]{1,3}">
+                                </div>
+                            </div>
+
+                            <script>
+                                function checkLength(el) {
+                                    if (el.value.length > 3) {
+                                        el.value = el.value.slice(0, 3);
+                                    }
+                                }
+                            </script>
+
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">sexo
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control custom-radio">
+                                        <select name="txtsex" id="selectOption" class="form-control">
+                                            <option value="M">----</option>
+                                            <option value="F">Femenino</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="O">Sin especificar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="cono1"
+                                    class="col-sm-3 text-right control-label col-form-label">Discapacidad?
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control custom-radio">
+                                        <select name="txtdiscapacidad" id="selectOption" class="form-control">
+                                            <option value="no">----</option>
+                                            <option value="no">No</option>
+                                            <option value="si">Si</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Asistira con
+                                    acompañante
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control custom-radio">
+                                        <select name="txtacompañante" id="selectOption" class="form-control">
+                                            <option value="no">----</option>
+                                            <option value="si">Si</option>
+                                            <option value="no">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Nivel
+                                    Educativo
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control custom-radio">
+                                        <select name="txteducacion" id="selectOption" class="form-control">
+                                            <option value="primaria">----</option>
+                                            <option value="primaria">Primaria</option>
+                                            <option value="secundaria">Secundaria</option>
+                                            <option value="tercer">Tercer Nivel</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">¿Como se
+                                    enteró
+                                    del evento?
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="custom-control custom-radio">
+                                        <select name="txtinfo" id="selectOption" class="form-control">
+                                            <option value="redes">----</option>
+                                            <option value="redes">Redes Sociales</option>
+                                            <option value="medios">Medios Impresos</option>
+                                            <option value="amigo">Amigo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-top" style="margin: 0 auto; float: none;">
+                            <div class=" card-body" style="margin: 0 auto; float: none; width: 50%;">
+                                <button type="submit" action="{% url 'gestion:confirmar_datos'  %}"
+                                    class="btn btn-primary m-auto">Inscribirse</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

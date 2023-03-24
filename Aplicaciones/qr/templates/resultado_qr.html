@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+  <body>
+    <h1 class="text-center">{{dic.nombre.title}}</h1>
+    
+    <div class="card mx-auto mt-5 text-center " style="width: 30rem;">
+      <div class="card-body mt-10">
+        <div style="font-size: 30px;">
+          <h5 class="card-title display-9">Información</h5>
+          <h6 class="text- card-subtitle mb-2 text-muted display-9">{{dic.nombre}}</h6>
+          {% if dic.ingreso == 'No tiene acceso' %}
+            <p class="card-text">No tiene acceso</p>
+            <i class="mdi mdi-close-circle mdi-lg"></i>
+          {% elif dic.ingreso == 'El QR ya ha sido verificado y usado' %}
+            <p class="card-text">No puede ingresar, el QR ya está registrado</p>
+            <i class="mdi mdi-close-circle mdi-lg"></i>
+          {% else %}
+            <p class="card-text">Si tiene acceso</p>
+            <i class="mdi mdi-checkbox-marked-circle mdi-lg"></i>
+            <p><strong>{{usuario.first_name.title}}</strong></p> 
+            <p><strong>{{usuario.last_name.capitalize}}</strong></p> 
+            <p>Cedula: {{usuario.profile.cedula}}</p> 
+
+  
+          {% endif %}
+
+        </div>
+       
+
+
+      </div>
+    </div>  
+ 
+  
+</body>
+{% endblock %}

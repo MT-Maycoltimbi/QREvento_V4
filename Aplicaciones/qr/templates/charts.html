@@ -1,0 +1,602 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.bundle.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/html2pdf.bundle.min.js' %}"></script>
+
+</head>
+
+<section>
+
+    <div id="elemento">
+        <div class="container-fluid">
+            <div class="row-1">
+                <div class="col-12">
+                    <div id="container-informe"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 20px; text-align: center;">
+            <div style="background-color: #f9f9f9; padding: 20px;">
+                <h3>Eventos más asistidos:</h3>
+                <ul style="margin: 0; padding: 0; list-style: none;">
+                    {% for evento in asis_may %}
+                    <li style="margin-bottom: 10px;">{{ evento }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div style="background-color: #f9f9f9; padding: 20px;">
+                <h3>Eventos menos asistidos:</h3>
+                <ul style="margin: 0; padding: 0; list-style: none;">
+                    {% for evento in asis_men %}
+                    <li style="margin-bottom: 10px;">{{ evento }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+       <div class="grid-container text-center">
+            <div class="grid-item">
+                <h3>Direccion con mas asistencia a eventos:</h3>{% for envento in top3_mayor %}
+                <p>{{envento}}</p>
+                {% endfor %}</h1>
+            </div>
+            <div class="grid-item">
+                <h3>Direccion con menos asistencia a eventos:</h3>{% for emvento in top3_menor %}
+                <p>{{emvento}}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div id="container"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <div id="container-pie"></div>
+                </div>
+                <div class="col-6">
+                    <div id="container-pie2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <div id="container-pie4"></div>
+                </div>
+                <div class="col-6">
+                    <div id="container-pie5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="container-pie3"></div>
+            </div>
+
+        </div>
+</section>
+
+<script type="application/javascript">
+
+    var asis = JSON.parse('{{asistencia|safe}}');
+    var ed = JSON.parse('{{edad|safe}}');
+
+    Highcharts.chart('container-informe', {
+
+        chart: {
+            type: 'boxplot'
+        },
+
+        title: {
+            text: 'INFORME'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        xAxis: {
+            categories: ['Edad', 'Asistencia'],
+            title: {
+                text: 'TABLA'
+            }
+        },
+
+        yAxis: {
+            title: {
+                text: 'Observaciones'
+            },
+            plotLines: [{
+                value: 0,
+                color: 'red',
+                width: 1,
+
+            }]
+        },
+
+        series: [{
+            name: 'Observaciones',
+            data: [
+                ed, asis
+
+            ],
+            tooltip: {
+                headerFormat: '<em>Dato {point.key}</em><br/>'
+            }
+        }, {
+            name: 'Outliers',
+            color: Highcharts.getOptions().colors[0],
+            type: 'scatter',
+
+            marker: {
+                fillColor: 'white',
+                lineWidth: 1,
+                lineColor: Highcharts.getOptions().colors[0]
+            },
+            tooltip: {
+                pointFormat: 'Observaciones: {point.y}'
+            }
+        }]
+
+    });
+
+
+    var data_h = JSON.parse('{{hombres |safe}}');
+    var data_m = JSON.parse('{{mujeres|safe}}');
+    var data_o = JSON.parse('{{otros|safe}}');
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'CANTIDAD DE PERSONAS EN EVENTOS POR MESES'
+        },
+        subtitle: {
+            text: 'Total de personas por genero'
+        },
+        xAxis: {
+            categories: [
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'Abril',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Personas'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y} persona</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Hombres',
+            data: data_h,
+            colorIndex: 4
+        }, {
+            name: 'Mujeres',
+            data: data_m,
+            colorIndex: 5
+
+        }, {
+            name: 'Sin Especificar',
+            data: data_o,
+            colorIndex: 6
+
+        }]
+    });
+    var yes = JSON.parse('{{acompa|safe}}');
+    var no = JSON.parse('{{no_acompa|safe}}');
+    Highcharts.chart('container-pie', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'PORCENTAJE DE PERSONAS QUE VAN ACOMPAÑADOS',
+            align: 'center'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [{
+                name: 'Si',
+                y: yes,
+                sliced: false,
+                selected: false,
+                colorIndex: 4,
+            }, {
+                name: 'No',
+                y: no,
+                colorIndex: 5,
+            }]
+        }]
+    });
+    var disca = JSON.parse('{{disca|safe}}');
+    var no_disca = JSON.parse('{{no_disca|safe}}');
+    Highcharts.chart('container-pie2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'PORCENTAJE DE PERSONAS DISCAPACITADAS',
+            align: 'center'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [{
+                name: 'Discapacitados',
+                y: disca,
+                sliced: false,
+                selected: false,
+                colorIndex: 4,
+            }, {
+                name: 'No discapacitados',
+                y: no_disca,
+                colorIndex: 5,
+            }]
+        }]
+    });
+
+
+    var primaria = JSON.parse('{{primaria|safe}}');
+    var secundaria = JSON.parse('{{secundaria|safe}}');
+    var superior = JSON.parse('{{superior|safe}}');
+    Highcharts.chart('container-pie4', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'PORCENTAJE PARTICIPANTES POR NIVEL EDUCATIVO',
+            align: 'center'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [{
+                name: 'Primaria',
+                y: primaria,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Secundaria',
+                y: secundaria
+            }, {
+                name: 'Superior',
+                y: superior
+            }]
+        }]
+    });
+    var medios = JSON.parse('{{medios|safe}}');
+    var redes = JSON.parse('{{rede|safe}}');
+    var amigos = JSON.parse('{{amigo|safe}}');
+    Highcharts.chart('container-pie5', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'COMO SE ENTERARON DEL EVENTO',
+            align: 'center',
+            verticalAlign: 'center',
+            y: 70
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%'],
+                size: '110%'
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Porcentaje',
+            innerSize: '50%',
+            data: [
+                ['Anuncio en linea', redes],
+                ['Amigos', amigos],
+                ['Medio impresos', medios],
+
+            ]
+        }]
+    });
+
+    var dato_o = JSON.parse('{{dato_o|safe}}');
+    Highcharts.chart('container-pie3', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'PORCENTAJE DE PERSONAS POR OCUPACION',
+            align: 'center'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentaje',
+            colorByPoint: true,
+            data: [{
+                name: 'Médico/a',
+                y: dato_o[0]
+            },
+            {
+                name: 'Enfermero/a',
+                y: dato_o[1]
+            },
+            {
+                name: ' Ingeniero/a',
+                y: dato_o[2]
+            },
+            {
+                name: ' Abogado/a',
+                y: dato_o[3]
+            },
+            {
+                name: ' Maestro/a',
+                y: dato_o[4]
+            },
+            {
+                name: ' Arquitecto/a',
+                y: dato_o[5]
+            },
+            {
+                name: ' Chef/Cocinero/a',
+                y: dato_o[6]
+            },
+            {
+                name: ' Carpintero/a',
+                y: dato_o[7]
+            },
+            {
+                name: ' Electricista',
+                y: dato_o[8]
+            },
+            {
+                name: ' Plomero/a',
+                y: dato_o[9]
+            },
+            {
+                name: ' Mecánico/a',
+                y: dato_o[10]
+            },
+            {
+                name: ' Diseñador/a gráfico/a',
+                y: dato_o[11]
+            },
+            {
+                name: ' Periodista',
+                y: dato_o[12]
+            },
+            {
+                name: ' Escritor/a',
+                y: dato_o[13]
+            },
+            {
+                name: ' Fotógrafo/a',
+                y: dato_o[14]
+            },
+            {
+                name: ' Artista plástico/a',
+                y: dato_o[15]
+            },
+            {
+                name: ' Actor/actriz',
+                y: dato_o[16]
+            },
+            {
+                name: ' Bailarín/bailarina',
+                y: dato_o[17]
+            },
+            {
+                name: ' Deportista/profesional del deporte',
+                y: dato_o[18]
+            },
+            {
+                name: ' Político/a',
+                y: dato_o[19]
+            },
+            {
+                name: ' Empresario/a',
+                y: dato_o[20]
+            },
+            {
+                name: ' Analista financiero/a',
+                y: dato_o[21]
+            },
+            {
+                name: ' Investigador/a',
+                y: dato_o[22]
+            },
+            {
+                name: ' Psicólogo/a',
+                y: dato_o[23]
+            },
+            {
+                name: ' Trabajador/a social',
+                y: dato_o[24]
+            },
+            {
+                name: ' Administrador/a de empresas',
+                y: dato_o[25]
+            },
+            {
+                name: ' Agente de seguros',
+                y: dato_o[26]
+            },
+            {
+                name: ' Vendedor/a',
+                y: dato_o[27]
+            },
+            {
+                name: ' Servidor/a de atención al cliente',
+                y: dato_o[28]
+            },
+            {
+                name: ' Operador/a de maquinaria pesada',
+                y: dato_o[29]
+            },
+            {
+                name: ' Otro/a',
+                y: dato_o[30]
+            }
+            ]
+        }]
+    });
+</script>
+
+
+
+
+
+
+
+{% endblock %}

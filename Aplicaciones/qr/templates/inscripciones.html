@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block page_title %}
+Form
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Eventos</th>
+                        <th>Lista de Inscritos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in evento %}
+                    <tr>
+                        <td>{{ i.name_evento }}</td>
+                        <td>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-success"
+                                    onclick="mostrarOcultarInscritos({{ forloop.counter0 }})">Mostrar
+                                    inscritos</a>
+                            </div>
+
+                            <div class="collapse" id="inscritos{{ forloop.counter0 }}" style="display:none">
+                                <div class="mt-2">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Cedula</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>email</th>
+                                                <th>Edad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for b in usuario %}
+                                            {% if b.id in i.mi_lista %}
+                                            <tr>
+                                                <td>{{ b.profile.cedula }}</td>
+                                                <td>{{ b.first_name }}</td>
+                                                <td>{{ b.last_name }}</td>
+                                                <td>{{ b.email }}</td>
+                                                <td>{{ b.profile.age }}</td>
+                                                <td><a href="{% url 'gestion:eliminar' id=b.id %}"
+                                                        class="btn btn-danger btn-sm btnEliminacion">Eliminar</a></td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function mostrarOcultarInscritos(eventoIndex) {
+        const inscritosDiv = document.getElementById(`inscritos${eventoIndex}`);
+        if (inscritosDiv.style.display === 'none') {
+            inscritosDiv.style.display = 'block';
+        } else {
+            inscritosDiv.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+
+
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-secondary text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
+                    <h6 class="text-white">Dashboard</h6>
+                </div>
+            </div>
+        </div>
+        <!-- Column  -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-success text-center">
+                    <a href="{% url 'gestion:charts' %}">
+                        <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
+                        <h6 class="text-white">Dashboard Estadistico</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Column  -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-warning text-center">
+                    <a href="{% url 'gestion:autent_qr' %}">
+                        <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
+                        <h6 class="text-white">Autentificacion QR</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Column  -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-info text-center">
+                    <a href="{% url 'gestion:Inscripciones' %}">
+                        <h1 class="font-light text-white"><i class="mdi mdi-arrow-all"></i></h1>
+                        <h6 class="text-white">Inscripciones</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Column  -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-danger text-center">
+                    <a href="{% url 'gestion:event_creado' %}">
+                        <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
+                        <h6 class="text-white">Eventos Creados</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Column  -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+            <div class="card card-hover">
+                <div class="box bg-cyan text-center">
+                    <a href="{% url 'gestion:crear_evento' %}">
+                        <h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
+                        <h6 class="text-white">Creacion de Eventos</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}

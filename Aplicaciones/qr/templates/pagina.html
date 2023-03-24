@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>QR Scanner</title>
+</head>
+<body>
+    <h1>QR Scanner</h1>
+    <div id="video-container"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            // Crea un elemento de vídeo y lo agrega al contenedor
+            var video = document.createElement('video');
+            $('#video-container').append(video);
+
+            // Configura el elemento de vídeo para reproducir desde la cámara
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            });
+
+            // Muestra el resultado en una nueva ventana
+            function showResult(data) {
+                window.open('/qr/result/?data=' + encodeURIComponent(data));
+            }
+
+            // Envía una solicitud AJAX para escanear el código QR
+            function scanQR() {
+                $.ajax('/qr/scan/', {
+                    success: function(result) {
+                        if (result.data) {
+                            showResult(result.data);
+                        } else {
+                            setTimeout(scanQR, 0);  // Escanea el siguiente fotograma
+                        }
+                    },
+                    error: function() {
+                        setTimeout(scanQR, 0);  // Escanea el siguiente fotograma en caso de error
+                    },
+                });
+            }
+
+            // Comienza a escanear el código QR
+            scanQR();
+        });
+    </script>
+{% endblock %}

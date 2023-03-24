@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+
+{% block content %}
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Eventos Creados</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'gestion:dashboard' %}">Inicio</a></li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-auto col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <div class="table-responsive py-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>id_evento</th>
+                    <th>ubicacion</th>
+                    <th>tipo</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th colspan="3">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in evento %}
+                <tr>
+                    <td>{{b.name_evento}}</td>
+                    <td>{{b.id_evento}}</td>
+                    <td>{{b.ubicacion}}</td>
+                    <td>{{b.tipo_evento}}</td>
+                    <td>{{b.fecha_evento }}</td>
+                    <td>{{b.hora_evento}}</td>
+
+                   
+                    <td><a href="{%url 'gestion:verificar' id_evento=b.id_evento %}" class="btn btn-dark">Verificación</a></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center text-lg">{{error}}</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="mt-5 row">
+            <div class="col-md-8" style="margin: 0 auto; float: none;">
+                <div class="card">
+                    <form class="form-horizontal" action="{% url 'gestion:datos' id=usuario.id nombre=usuario.first_name %}" method="POST">{% csrf_token %}
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Confirmacion de Datos</h4>
+                            <input type="text" hidden name="txtidusuario" value="{{usuario.id}}">
+                            <input type="text" hidden name="txteventousuario" value="{{evento.evento}}">
+                            <div>
+                                <p>Gracias por registrarte, ya te enviamos un correo con la invitacion</p> 
+                                <p>dale a siguiente para ver tu qr</p>
+                            </div>
+                        </div>
+                      
+                        <div class="border-top" style="margin: 0 auto; float: none;">
+                            <div class=" card-body" style="margin: 0 auto; float: none; width: 50%;">
+                            <button type="submit" class="btn btn-primary m-auto">Ver mi QR</button>
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

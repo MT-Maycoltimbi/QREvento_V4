@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+
+{% block content %}
+<div class="page-breadcrumb">
+  <div class="row">
+    <div class="col-12 d-flex no-block align-items-center">
+
+      <div class="ml-auto text-right">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'gestion:dashboard' %}">Inicio</a></li>
+
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="d-flex align-items-center">
+  <div class="card mx-auto">
+
+    <div class="card-body shadow text-center">
+      <h5 class="card-title">Eventos Creados</h5>
+      <h6>Fecha - Hora</h6>
+      <h6>Ubicacion</h6>
+      <h6>Tipo de Evento</h6>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="row m-auto">
+  {% for b in evento %}
+  <input type="textarea" id="nombre" value="{{b.name_evento}}" hidden>
+  <div class="col-sm-4">
+    <div class="card ">
+      <div class="card-body shadow text-center border-rounded">
+        <h5 class="card-title">{{ b.name_evento }}</h5>
+        <h6>{{b.fecha_evento}} - {{b.hora_evento}}</h6>
+        <h6>{{b.ubicacion}}</h6>
+        <h6>{{b.tipo_evento}}</h6>
+        {% if fecha_evento < fecha_actual %} <p>Estado: Realizado</p>
+          {% else %}
+          <p>Estado: Pendiente</p>
+          {% endif %}
+          <input style="border: 0; width: 180px;" type="text" id="url" class="clipboard"
+            value="{%url 'gestion:registro_usuario' nombre=b.name_evento %}"> <span><i class="fa fa-copy"></i></span>
+          <script>
+            const button = document.querySelector('i.fa-copy');
+            const input = document.querySelector('.clipboard');
+            button.addEventListener('click', function () {
+              input.focus();
+              document.execCommand('selectAll');
+              document.execCommand('copy');
+            })
+          </script>
+          <p></p>
+          <a href="{%url 'gestion:pdf' id_evento=b.id_evento %}" class="btn btn-warning">Listado </a> <a
+            href="{%url 'gestion:editar_evento' id_evento=b.id_evento %}" class="btn btn-info shadow">Editar</a> <a
+            href="{%url 'gestion:eliminar_evento' id_evento=b.id_evento %}"
+            class="btn btn-danger btnEliminacion shadow">Eliminar</a> <a id="boton" name="boton"
+            href="{%url 'gestion:registro_usuario' nombre=b.name_evento %}" class="btn btn-success shadow">obtener
+            enlace</a>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}
