@@ -13,6 +13,7 @@
 
 <body class="h-screen w-full flex flex items-center justify-center bg-gray-200">
   <!-- component -->
+
   <div
     class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
     <div class="px-6">
@@ -71,6 +72,22 @@
             <p class="font-light leading-relaxed text-slate-600 mb-4">
 
             </p>
+
+            <div id="aviso" style="display: none;"
+              class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+              <strong class="font-bold">¡Registro exitoso!</strong>
+              <span class="block sm:inline">Hemos enviado a tu correo información</span>
+              <span class="block sm:inline">sobre el evento y tu código QR.</span>
+              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                <svg onclick="ocultarAviso()" class="fill-current h-6 w-6 text-green-500 cursor-pointer" role="button"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <title>Close</title>
+                  <path
+                    d="M14.348 14.849a1 1 0 1 1-1.414 1.414l-3.536-3.535-3.536 3.535a1 1 0 0 1-1.414-1.414l3.536-3.535-3.536-3.536a1 1 0 1 1 1.414-1.414l3.536 3.536 3.536-3.536a1 1 0 1 1 1.414 1.414l-3.536 3.535 3.536 3.536z" />
+                </svg>
+              </span>
+            </div>
+
             <p>Mi QR</p>
 
             <div class="container-fluid w-full flex items-center justify-center">
@@ -87,6 +104,21 @@
     </div>
 
   </div>
+  <script>
+    function mostrarAviso() {
+      var aviso = document.getElementById("aviso");
+      aviso.style.display = "block";
+      setTimeout(function () { aviso.style.display = "none"; }, 9000);
+    }
+
+    function ocultarAviso() {
+      var aviso = document.getElementById("aviso");
+      aviso.style.display = "none";
+    }
+
+    mostrarAviso();
+  </script>
+
 
 </body>
 

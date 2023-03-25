@@ -1733,7 +1733,7 @@
             /**
              * A box plot is a convenient way of depicting groups of data through their
              * five-number summaries: the smallest observation (sample minimum), lower
-             * quartile (Q1), median (Q2), upper quartile (Q3), and largest observation
+             * quartile (Q1), median (Q2), Cuartil_superior (Q3), and largest observation
              * (sample maximum).
              *
              * @sample highcharts/demo/box-plot/
@@ -1755,7 +1755,7 @@
                     pointFormat: '<span style="color:{point.color}">\u25CF</span> <b>' +
                         '{series.name}</b><br/>' +
                         'Maximum: {point.high}<br/>' +
-                        'Upper quartile: {point.q3}<br/>' +
+                        'Cuartil_superior: {point.q3}<br/>' +
                         'Median: {point.median}<br/>' +
                         'Lower quartile: {point.q1}<br/>' +
                         'Minimum: {point.low}<br/>'

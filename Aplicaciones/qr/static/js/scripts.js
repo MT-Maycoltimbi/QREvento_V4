@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Escuchamos el click del botón
     const $boton = document.querySelector("#btnCrearPdf");
     $boton.addEventListener("click", () => {
-        const $elementoParaConvertir = document.body ; // <-- Aquí puedes elegir cualquier elemento del DOM
+        const $elementoParaConvertir = document.getElementById("invoice") ; // <-- Aquí puedes elegir cualquier elemento del DOM
         html2pdf()
             .set({
                 margin: 0,

@@ -11396,7 +11396,7 @@
                         boxplot: 'Box plot charts are typically used to display ' +
                             'groups of statistical data. Each data point in the ' +
                             'chart can have up to 5 values: minimum, lower quartile, ' +
-                            'median, upper quartile, and maximum.',
+                            'median, Cuartil_superior, and maximum.',
                         arearange: 'Arearange charts are line charts displaying a ' +
                             'range between a lower and higher value for each point.',
                         areasplinerange: 'These charts are line charts displaying a ' +

@@ -1,0 +1,12 @@
+Django==4.1.7
+matplotlib==3.7.1
+numpy ==1.24.2
+opencv-contrib-python==4.7.0.72
+opencv-python==4.7.0.72
+Pillow==9.4.0
+psycopg2==2.9.5
+pyzbar==0.1.9
+qrcode==7.4.2
+
+
+
